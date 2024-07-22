@@ -14,6 +14,7 @@
             variant="outlined"
             clearable
             style="color: white;"
+            min-width="300"
             
           >
           </v-text-field>
@@ -24,7 +25,7 @@
             variant="outlined"
             clearable
             style="color: white;"
-           
+            min-width="300"
           >
           </v-text-field>
           <v-text-field
@@ -34,19 +35,27 @@
             variant="outlined"
             clearable
             style="color: white;"
-            
+            min-width="300"
           >
           </v-text-field>
           <P align="center" class="mb-4" v-if="isTrue">
-            <span style="color: #72c0ff;font-weight: 600;">{{ ageYear }}</span> years 
+             <span style="color: #72c0ff;font-weight: 600;">{{ ageYear }}</span> years 
              <span style="color: #72c0ff;font-weight: 600;">{{ ageMonth }}</span> months 
-             <span style="color: #72c0ff;font-weight: 600;">{{ ageDate }}</span> days</P>
-          <v-btn 
+             <span style="color: #72c0ff;font-weight: 600;">{{ ageDate }}</span> days
+          </P>
+          <v-btn
+          v-if="!isTrue" 
           @click="ageCalc"
           color="indigo"
           class="w-100"
           style="text-transform: unset !important;"
           >Calculate Age</v-btn>
+          <v-btn 
+          @click="Reset"
+          v-if="isTrue" 
+          class="w-100"
+          style="text-transform: unset !important;"
+          >Reset</v-btn>
     </v-card>
     </v-row>
 
@@ -146,5 +155,10 @@
   }
 
 }
-  
+const Reset = () =>{
+  getDate.value = '';
+  getMonth.value = '';
+  getYear.value = '';
+  isTrue.value = false;
+} 
 </script>
