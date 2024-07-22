@@ -6,6 +6,25 @@
     >
     <h2 align="center" class="mb-3">Age Calculator</h2>
     <v-row align="center" justify="center">
+    <v-alert
+    v-if="isAlert"
+    title="Invalid user input"
+    color="red-darken-4"
+    closable
+    max-width="400"
+    class="ma-5"
+  >
+  <ul class="mt-2">
+  <li>
+  Date Should be Between 1-31
+  </li>
+  <li>
+  Month should be between 1-12
+  </li></ul>
+  Year should not be greater than {{ year }}
+  </v-alert>
+</v-row>
+    <v-row align="center" justify="center">
       <v-card class="ma-5 px-5 pt-6 pb-5"  max-width="400" color="blue-grey-darken-4">
       <v-text-field
             v-model="getDate"
@@ -15,7 +34,8 @@
             clearable
             style="color: white;"
             min-width="300"
-            
+            hide-spin-buttons
+            :rules="[rule1.required]"
           >
           </v-text-field>
           <v-text-field
@@ -26,6 +46,8 @@
             clearable
             style="color: white;"
             min-width="300"
+            hide-spin-buttons
+            :rules="[rule1.required]"
           >
           </v-text-field>
           <v-text-field
@@ -36,6 +58,8 @@
             clearable
             style="color: white;"
             min-width="300"
+            hide-spin-buttons
+            :rules="[rule1.required]"
           >
           </v-text-field>
           <P align="center" class="mb-4" v-if="isTrue">
@@ -76,17 +100,22 @@
   const getDate = ref('');
   const getMonth = ref('');
   const getYear = ref('');
-  var isTrue = ref(false)
+  var isTrue = ref(false);
+  var isAlert = ref(false);
+  const rule1 = ref({
+  required: value => !!value || 'Field is required', 
+});
+
   const ageCalc = () =>{
     if(Number(getMonth.value) > 12 || Number(getDate.value) > 31 || Number(getYear.value) > year){
-      window.alert("invalid input");
+      isAlert.value = true;
       console.log(getYear.value)
       console.log(getMonth.value)
       console.log(getDate.value)
     }
     else if(Number(getYear.value) == year){
       if(Number(getMonth.value) > month || Number(getDate.value) > date){
-        window.alert("invalid input");
+        isAlert.value = true;
       }
       else{
         if(getMonth.value.length > 0 && getDate.value.length > 0 && getYear.value.length > 0){
